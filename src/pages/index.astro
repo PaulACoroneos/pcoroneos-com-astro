@@ -1,0 +1,70 @@
+---
+// Redirect the root page to the blog page
+Astro.response.status = 301;
+Astro.response.headers.set("Location", "/blog");
+---
+
+<MainLayout title={title}>
+  <div class="pt-6 pb-8 space-y-2 md:space-y-5">
+    <h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+      Hi, I'm Paul!
+    </h1>
+    <p class="prose max-w-none text-lg leading-7 text-gray-500">
+      Welcome to my blog. I write about web development, algorithms, and various technical topics.
+      I'm passionate about solving problems and sharing what I learn along the way.
+    </p>
+    <div class="flex space-x-4">
+      <a href="/about" class="text-secondary hover:text-primary">More About Me &rarr;</a>
+      <a href="/leetcode" class="text-secondary hover:text-primary">LeetCode Solutions &rarr;</a>
+    </div>
+  </div>
+  
+  <div class="border-t border-gray-200 pt-10 pb-8">
+    <h2 class="text-2xl font-bold mb-5">Recent Posts</h2>
+    <ul class="divide-y divide-gray-200">
+      {recentPosts.map(post => (
+        <li class="py-5">
+          <article class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+            <dl>
+              <dt class="sr-only">Published on</dt>
+              <dd class="text-base font-medium leading-6 text-gray-500">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {new Date(post.data.pubDate).toLocaleDateString('en-us', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </time>
+              </dd>
+            </dl>
+            <div class="space-y-3 xl:col-span-3">
+              <h3 class="text-xl font-bold leading-8 tracking-tight">
+                <a href={`/blog/${post.slug}/`} class="text-gray-900">
+                  {post.data.title}
+                </a>
+              </h3>
+              <div class="prose max-w-none text-gray-500">
+                {post.data.description}
+              </div>
+              <div class="text-base font-medium leading-6">
+                <a 
+                  href={`/blog/${post.slug}/`} 
+                  class="text-secondary hover:text-primary" 
+                  aria-label={`Read "${post.data.title}"`}
+                >
+                  Read more &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </div>
+  
+  <div class="text-base font-medium leading-6 pt-4 text-center border-t border-gray-200">
+    <a href="/blog" class="text-secondary hover:text-primary">
+      View All Posts &rarr;
+    </a>
+  </div>
+</MainLayout>

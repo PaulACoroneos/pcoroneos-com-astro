@@ -1,0 +1,48 @@
+---
+// Navigation links
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/leetcode", label: "LeetCode" },
+  { href: "/about", label: "About" }
+];
+---
+
+<header class="bg-secondary mx-auto flex max-w-3xl items-center justify-between px-1 py-2 sm:px-6 md:mt-2 md:rounded-lg md:px-4 md:py-8 xl:max-w-5xl xl:px-0">
+  <a
+    href="/"
+    aria-label="Paul Coroneos Home"
+    class="inline-flex items-center md:px-2"
+  >
+    <img
+      src="/paulcoroneos.jpg"
+      alt="Paul Coroneos Profile image"
+      class="h-8 w-8 rounded-full md:h-24 md:w-24"
+    />
+    <span class="whitespace-nowrap pl-2 text-sm text-white md:text-2xl lg:text-2xl xl:text-3xl">
+      Paul Coroneos
+    </span>
+  </a>
+  
+  <nav class="ml-6 items-center">
+    <ul class="flex flex-wrap items-center">
+      {NAV_LINKS.map(link => (
+        <li class="mx-1 md:mx-2">
+          <a 
+            href={link.href}
+            class="text-white text-sm md:text-lg hover:text-primary"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="mx-1 md:mx-2">
+        <a href="/rss.xml" aria-label="RSS Feed" class="text-white hover:text-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="fill: currentColor;">
+            <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

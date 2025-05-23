@@ -1,0 +1,55 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SectionContainer from '../components/SectionContainer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Paul Coroneos', 
+  description = 'A blog and portfolio by Paul Coroneos'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <meta name="author" content="Paul Coroneos">
+  <meta name="generator" content={Astro.generator}>
+  <title>{title}</title>
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed for Paul Coroneos Blog" href="/rss.xml">
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href}>
+  
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#094074">
+  <meta name="theme-color" content="#ffffff">
+  
+  <!-- Font preloading -->
+  <link rel="preload" href="/fonts/Inter-roman.var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Inter-italic.var.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body class="bg-white text-black antialiased">
+  <Header />
+  <SectionContainer>
+    <main class="mb-auto">
+      <slot />
+    </main>
+    <Footer />
+  </SectionContainer>
+  
+  <!-- Astro doesn't need the Analytics and SpeedInsights components directly in the layout,
+       they would be added via Astro integrations if needed -->
+</body>
+</html>

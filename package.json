@@ -1,0 +1,35 @@
+{
+  "name": "pcoroneos-com-astro",
+  "version": "1.0.0",
+  "description": "An Astro.js site serving as an MDX blog with an RSS feed.",
+  "type": "module",
+  "packageManager": "pnpm@8.10.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "keywords": [
+    "astro",
+    "mdx",
+    "blog",
+    "rss"
+  ],
+  "author": "Paul Coroneos",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/mdx": "^1.1.5",
+    "@astrojs/rss": "^3.0.0",
+    "astro": "^3.6.4",
+    "remark-emoji": "^4.0.1",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17"
+  }
+}
