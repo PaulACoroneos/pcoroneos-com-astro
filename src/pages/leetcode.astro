@@ -1,0 +1,204 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts with the LeetCode tag
+const allPosts = await getCollection('blog');
+const leetcodePosts = allPosts
+  .filter(post => post.data.tags && post.data.tags.includes('leetcode'))
+  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+
+const title = "Latest LeetCode Solutions";
+---
+
+<MainLayout title={title}>
+  <div class="leetcode-container">
+    <div class="heading">
+      <h1>Latest LeetCode Solutions</h1>
+    </div>
+    
+    <div class="search">
+      <label>
+        <span>Search Solutions</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Search by title..."
+        />
+      </label>
+    </div>
+    
+    <ul class="post-list">
+      {leetcodePosts.map(post => (
+        <li class="post-item">
+          <article>
+            <div class="post-meta">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {new Date(post.data.pubDate).toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </div>
+            <div class="post-content">
+              <h2 class="post-title">
+                <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              </h2>
+              <div class="post-description">
+                <p>{post.data.description}</p>
+              </div>
+              <div class="read-more">
+                <a href={`/blog/${post.slug}/`} aria-label={`Read "${post.data.title}"`}>
+                  Read more &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+
+    <!-- No results message -->
+    <div id="no-results" class="hidden">
+      <p>No LeetCode solutions match your search.</p>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  // Client-side search functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('search-input');
+    const postItems = document.querySelectorAll('.post-item');
+    const noResults = document.getElementById('no-results');
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      let hasResults = false;
+
+      postItems.forEach(item => {
+        const title = item.querySelector('.post-title').textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          item.classList.remove('hidden');
+          hasResults = true;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      if (hasResults) {
+        noResults.classList.add('hidden');
+      } else {
+        noResults.classList.remove('hidden');
+      }
+    });
+  });
+</script>
+
+<style>
+  .leetcode-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .heading {
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .search {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0;
+    border-top: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+  }
+
+  .search label {
+    display: flex;
+    align-items: center;
+  }
+
+  .search span {
+    margin-right: 0.5rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .search input {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .post-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 1280px) {
+    article {
+      grid-template-columns: 1fr 3fr;
+    }
+  }
+
+  .post-meta {
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-title a {
+    color: #111827;
+    text-decoration: none;
+  }
+
+  .post-title a:hover {
+    color: #2563eb;
+  }
+
+  .post-description {
+    color: #4b5563;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .read-more {
+    font-weight: 500;
+  }
+
+  .read-more a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .read-more a:hover {
+    text-decoration: underline;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>

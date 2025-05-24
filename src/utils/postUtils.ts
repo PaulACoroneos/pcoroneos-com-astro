@@ -1,8 +1,3 @@
-/**
- * Extracts the excerpt/preview content from a post
- * Works with both {/* more */} tags and {/* excerpt */} {/* /excerpt */} tags
- * Also handles standard MDX content by extracting the first few paragraphs
- */
 export function getPostExcerpt(content: string): string {
   // If there's a "more" comment, use everything before it as the excerpt
   if (content.includes('{/* more */}')) {

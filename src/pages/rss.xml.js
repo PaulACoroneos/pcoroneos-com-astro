@@ -29,7 +29,6 @@ export async function GET(context) {
     `.trim(),
   });
   
-  // Set cache control headers similar to Next.js implementation
   const cacheMaxAgeUntilStaleSeconds = 60; // 1 minute
   const cacheMaxAgeStaleDataReturnSeconds = 60 * 60; // 60 minutes
   

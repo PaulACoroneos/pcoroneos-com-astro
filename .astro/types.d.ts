@@ -227,6 +227,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"first-post.mdx": {
+	id: "first-post.mdx";
+  slug: "first-post";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 "free-code-camp/no-repeats-please/page.mdx": {
 	id: "free-code-camp/no-repeats-please/page.mdx";
   slug: "free-code-camp/no-repeats-please/page";

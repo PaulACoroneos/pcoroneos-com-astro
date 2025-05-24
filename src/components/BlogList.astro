@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import { getPostExcerpt } from '../utils/postUtils';
+
+// Get all blog posts sorted by date
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+
+// Process posts to get excerpts
+const postsWithExcerpts = await Promise.all(
+  sortedPosts.map(async (post) => {
+    // Get the rendered content
+    const { render } = await post.render();
+    // Access the raw content from the post body
+    const rawContent = post.body;
+    // Generate excerpt using our utility function or fall back to description
+    const excerpt = rawContent ? getPostExcerpt(rawContent) : post.data.description;
+    return { ...post, excerpt };
+  })
+);
+---
+
+<div class="divide-y divide-gray-200">
+  <div class="pt-6 pb-8 space-y-2 md:space-y-5">
+    <h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+      Blog
+    </h1>
+    <p class="text-lg leading-7 text-gray-500">
+      Posts on web development, algorithms, and my journey as a software engineer
+    </p>
+  </div>
+  
+  <ul class="divide-y divide-gray-200">
+    {postsWithExcerpts.map(post => (
+      <li class="py-12">
+        <article>
+          <div class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+            <dl>
+              <dt class="sr-only">Published on</dt>
+              <dd class="text-base font-medium leading-6 text-gray-500">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {new Date(post.data.pubDate).toLocaleDateString('en-us', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </time>
+              </dd>
+            </dl>
+            <div class="space-y-5 xl:col-span-3">
+              <div class="space-y-6">
+                <div>
+                  <h2 class="text-2xl font-bold leading-8 tracking-tight">
+                    <a href={`/blog/${post.slug}/`} class="text-gray-900 hover:text-primary">
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="flex flex-wrap mt-2">
+                      {post.data.tags.map(tag => (
+                        <span class="mr-2 mb-2 text-sm inline-block bg-gray-100 rounded-md px-2 py-1 text-gray-700">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div class="prose max-w-none text-gray-500">
+                  {post.excerpt}
+                </div>
+              </div>
+              <div class="text-base font-medium leading-6">
+                <a 
+                  href={`/blog/${post.slug}/`} 
+                  class="text-secondary hover:text-primary" 
+                  aria-label={`Read "${post.data.title}"`}
+                >
+                  Read more &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+    ))}
+  </ul>
+</div>

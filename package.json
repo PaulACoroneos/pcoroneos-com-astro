@@ -8,7 +8,9 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx,.astro src",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx,.astro src --fix"
   },
   "keywords": [
     "astro",
@@ -20,16 +22,33 @@
   "license": "MIT",
   "dependencies": {
     "@astrojs/mdx": "^1.1.5",
+    "@astrojs/react": "^4.3.0",
     "@astrojs/rss": "^3.0.0",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
     "astro": "^3.6.4",
+    "date-fns": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "remark-emoji": "^4.0.1",
-    "remark-gfm": "^4.0.0"
+    "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
+    "@eslint/css": "^0.8.1",
+    "@eslint/js": "^9.27.0",
+    "@eslint/json": "^0.12.0",
+    "@eslint/markdown": "^6.4.0",
     "@tailwindcss/typography": "^0.5.16",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
     "autoprefixer": "^10.4.21",
+    "eslint": "^9.27.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.1.0",
     "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "typescript-eslint": "^8.32.1"
   }
 }

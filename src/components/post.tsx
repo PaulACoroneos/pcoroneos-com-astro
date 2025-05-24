@@ -1,6 +1,5 @@
-"use client";
+import * as React from "react";
 import PageTitle from "./page-title";
-import Link from "next/link";
 import { format, parseISO } from "date-fns";
 
 // write type for postprops
@@ -58,9 +57,9 @@ const Post = ({ meta, children }: PostProps) => {
         </div>
         <footer className="divide-gray-200 divide-y text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
           <div className="pt-8">
-            <Link href="/" className="text-secondary hover:text-primary">
+            <a href="/" className="text-secondary hover:text-primary">
               &larr; Back to the blog
-            </Link>
+            </a>
           </div>
         </footer>
       </div>

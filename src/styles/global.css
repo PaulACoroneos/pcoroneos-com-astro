@@ -12,6 +12,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Improve spacing in articles */
+article {
+  @apply mx-auto;
+}
+
+.prose {
+  @apply max-w-none;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply font-bold;
+}
+
+.prose p {
+  @apply my-4 text-base;
+}
+
+.prose ul {
+  @apply list-disc pl-5 my-4;
+}
+
+.prose ol {
+  @apply list-decimal pl-5 my-4;
+}
+
+.prose a {
+  @apply text-secondary hover:text-primary underline;
+}
+
 /**
  * Night Owl Theme for code blocks
  */

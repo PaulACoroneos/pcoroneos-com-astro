@@ -23,9 +23,17 @@ const {
   <meta name="author" content="Paul Coroneos">
   <meta name="generator" content={Astro.generator}>
   <title>{title}</title>
-  <link rel="stylesheet" href="/styles/global.css">
   <link rel="alternate" type="application/rss+xml" title="RSS Feed for Paul Coroneos Blog" href="/rss.xml">
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href}>
+  
+  <!-- Import global styles -->
+  <style is:global>
+    @import "../styles/global.css";
+    @import "../styles/typography.css";
+    @import "../styles/prism.css";
+    @import "../styles/mdx.css";
+    @import "../styles/blog.css";
+  </style>
   
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -48,8 +56,5 @@ const {
     </main>
     <Footer />
   </SectionContainer>
-  
-  <!-- Astro doesn't need the Analytics and SpeedInsights components directly in the layout,
-       they would be added via Astro integrations if needed -->
 </body>
 </html>

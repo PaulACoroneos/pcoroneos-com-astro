@@ -1,25 +1,40 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
 import remarkGfm from 'remark-gfm';
 import remarkEmoji from 'remark-emoji';
+
+// Custom Link component for MDX
+import { resolve } from 'path';
+const componentsPath = resolve('./src/components');
 
 export default defineConfig({
   site: 'https://pcoroneos.com',
   integrations: [
     mdx({
       syntaxHighlight: 'prism',
-      remarkPlugins: [
-        remarkGfm,
-        remarkEmoji,
-      ],
+      gfm: true, // Use GitHub Flavored Markdown
+      remarkPlugins: [remarkGfm, remarkEmoji],
       rehypePlugins: [],
+      extendMarkdownConfig: true,
+      components: {
+        'a': componentsPath + '/CustomLink.astro',
+      },
     }),
-    tailwind(),
+    tailwind({
+      config: { path: './tailwind.config.js' },
+    }),
+    react(),
   ],
   markdown: {
     syntaxHighlight: 'prism',
+    gfm: true, // Use GitHub Flavored Markdown
     remarkPlugins: [remarkGfm, remarkEmoji],
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true,
+    },
   },
   redirects: {
     '/atoi': '/blog/atoi',

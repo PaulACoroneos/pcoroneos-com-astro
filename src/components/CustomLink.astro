@@ -1,0 +1,22 @@
+---
+// A component to handle links in MDX files
+export interface Props {
+  href: string;
+  [key: string]: any;
+}
+
+const { href, ...props } = Astro.props;
+
+// Check if the link is internal or external
+const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
+---
+
+{isInternalLink ? (
+  <a href={href} {...props}>
+    <slot />
+  </a>
+) : (
+  <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+    <slot />
+  </a>
+)}
